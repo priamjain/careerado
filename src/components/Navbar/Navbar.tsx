@@ -1,17 +1,22 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
+import { Nav, Navbar as BootstrapNavbar} from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import Logo from '../../assets/logo.png'
 
-function Navbar(): ReactElement {
+export const Navbar = () => {
     return (
-        <div className="d-flex container pt-3">
-            <img src={Logo} width="50" alt="Careerado"/>
-            
-            {/* <div className="d-flex ml-auto align-items-center text-muted">
-                <div>Read</div>
-                <div className="ml-3 mr-3">Watch</div>
-            </div> */}
+        <div className="d-flex pt-3 w-100">
+            <BootstrapNavbar bg="light" expand="lg" className="w-100 bg-transparent">
+                <BootstrapNavbar.Brand as={Link} to="/"><img src={Logo} width="50" alt="Careerado"/></BootstrapNavbar.Brand>
+                <BootstrapNavbar.Toggle aria-controls="basic-navbar-nav" />
+                <BootstrapNavbar.Collapse id="basic-navbar-nav">
+                    <Nav className="ml-auto">
+                        <Nav.Link as={Link} to="/" className="text-dark">Home</Nav.Link>
+                        <Nav.Link as={Link} to="/" className="text-dark">Link</Nav.Link>
+                    </Nav>
+                </BootstrapNavbar.Collapse>
+            </BootstrapNavbar>
         </div>
     )
 }
 
-export default Navbar

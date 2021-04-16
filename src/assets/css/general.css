@@ -1,0 +1,25 @@
+@font-face {
+    font-family: AvenirRegular;
+    src: url(../font/AvenirLTStd-Book.otf);    
+}
+@font-face {
+    font-family: AvenirMedium;
+    src: url(../font/AvenirLTStd-Medium.otf);    
+}
+@font-face {    
+    font-family: AvenirRoman;
+    src: url(../font/AvenirLTStd-Roman.otf);    
+}
+@font-face {
+    font-family: AvenirBold;
+    src: url(../font/AvenirNextLTPro-Bold.ttf);    
+}
+@font-face {
+    font-family: AvenirHeavyCn;
+    src: url(../font/AvenirNextLTPro-HeavyCn.ttf);       
+}
+
+body
+{
+    font-family: 'AvenirRegular' !important;
+}

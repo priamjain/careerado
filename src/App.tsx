@@ -1,12 +1,24 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Navbar from './components/Navbar/Navbar';
-import Header from './components/Header/Header';
+import './assets/css/general.css'
+import {BrowserRouter as Router,Switch,Route} from 'react-router-dom'
+import { Home } from './pages/Home/Home';
+import { Roadmap } from './pages/Roadmap/Roadmap';
+
 function App() {
+
   return (
     <div>
-        <Navbar/>
-        <Header/>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Home/>
+          </Route>
+          <Route exact path="/roadmap">
+            <Roadmap/>
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }

@@ -1,0 +1,12 @@
+.c2{
+    background-color: #F5F6FF;    
+}
+
+@media screen and (min-width:768px) {
+    .c2{
+        position: fixed;
+        height: 100vh;
+        right: 0;
+    }
+    
+}
