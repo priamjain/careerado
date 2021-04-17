@@ -3,19 +3,23 @@ import { Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import styles from './CareerCard.module.css'
 interface Props {
-
+    title: string,
+    description: string,
+    comingsoon:boolean
 }
 
 export const CareerCard = (props: Props) => {
     return (
-            <div className="col-12 col-md-6 col-lg-4 p-3">
-                <Link to="/roadmap" className="no_style_link">
+            <div className="col-12 col-md-6 col-xl-4 p-3">
+                <Link to={`${!props.comingsoon?("/roadmap/"+props.title):'#'}`} className="no_style_link">
                     <Card className={styles.main}>
                         <Card.Body>
-                            <Card.Title>Card Title</Card.Title>
+                            {props.comingsoon && <div className={"badge bg-secondary text-light mb-2 "+styles.badge}>
+                                Coming Soon
+                            </div>}
+                            <Card.Title>{props.title}</Card.Title>
                             <Card.Text>
-                            Some quick example text to build on the card title and make up the bulk of
-                            the card's content.
+                            {props.description}.
                             </Card.Text>
                         </Card.Body>
                     </Card>

@@ -12,7 +12,6 @@ export const Navbar = () => {
                 <BootstrapNavbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto">
                         <Nav.Link as={Link} to="/" className="text-dark">Home</Nav.Link>
-                        <Nav.Link as={Link} to="/" className="text-dark">Link</Nav.Link>
                     </Nav>
                 </BootstrapNavbar.Collapse>
             </BootstrapNavbar>

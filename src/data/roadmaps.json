@@ -1,0 +1,14 @@
+{
+    "react":{
+        "title":"React",
+        "description":"Make websites, mobile apps, desktop apps using React library maintained by facebook and a community of individual developers"
+    },
+    "backend":{
+        "title":"Backend Web Developer",
+        "description":"Implement what happend behind the website. Communicate with databse, use REST / graphql to make API for frontend"
+    },
+    "devops":{
+        "title":"Devops",
+        "description":"DevOps is the combination of practices that joins Development (Dev) and Operations (Ops). It plans to cut the software development life cycle and increases an organization's ability to deliver applications and services at high velocity."
+    }
+}
