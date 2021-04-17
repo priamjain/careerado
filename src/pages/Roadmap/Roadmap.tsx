@@ -4,6 +4,7 @@ import { Layout } from '../../utils/Layout/Layout'
 
 
 interface Props {
+    id:string,
     title: string,
     description: string,
     roadmap:string

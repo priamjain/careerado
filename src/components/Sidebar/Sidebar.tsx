@@ -10,15 +10,15 @@ export const Sidebar = (props: Props) => {
         <div className={styles.main}>
             <p>Most Visited</p>
             <div className="mt-3">
-                <Link to="/roadmap/React" className="no_style_link">
+                <Link to="/roadmap/react" className="no_style_link">
                     <div className={"p-3 border border-dark rounded mt-2 text-center " + styles.card}>React</div>
+                </Link>
+                <Link to="/roadmap/backend" className="no_style_link">
+                    <div className={"p-3 border border-dark rounded mt-2 text-center " + styles.card}>Backend Web Development</div>
                 </Link>
             </div>
             <p className="mt-4">Coming Soon</p>
             <div className="mt-3">
-                <Link to="#" className="no_style_link">
-                    <div className={"p-3 border border-dark rounded mt-2 text-center " + styles.card}>Backend Web Development</div>
-                </Link>
                 <Link to="#" className="no_style_link">
                     <div className={"p-3 border border-dark rounded mt-2 text-center " + styles.card}>Devops</div>
                 </Link>
