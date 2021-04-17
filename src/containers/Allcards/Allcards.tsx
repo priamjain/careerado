@@ -6,7 +6,7 @@ import roadmapsData  from '../../data/roadmaps.json'
 function Allcards(): ReactElement {
     return (
         <div className={"mt-4 pt-3 pb-4 "+ styles.main}>
-            <p className="h2 text-dark">Find a roadmap for your passion</p>
+            <h2 className="h2 text-dark">Find a roadmap for your passion</h2>
             <div className="row">
                 <CareerCard
                     title={roadmapsData.react.title}
