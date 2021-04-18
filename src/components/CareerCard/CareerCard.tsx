@@ -11,14 +11,15 @@ interface Props {
 
 export const CareerCard = (props: Props) => {
     return (
-            <div className="col-12 p-3 align-items-stretch">
+            <div className="col-12 col-md-6 col-lg-4 p-3 align-items-stretch">
                 <Link to={`${!props.comingsoon?("/roadmap/"+props.id):'#'}`} className="no_style_link">
                     <Card className={styles.main}>
                         <Card.Body>
-                            {props.comingsoon && <div className={"badge bg-secondary text-light mb-2 "+styles.badge}>
-                                Coming Soon
-                            </div>}
-                            <Card.Title>{props.title}</Card.Title>
+                            <Card.Title>
+                                {props.title}{props.comingsoon && <div className={"badge bg-secondary text-light ml-2 "+styles.badge}>
+                                    Coming Soon
+                                </div>}
+                            </Card.Title>
                             <Card.Text>
                             {props.description}
                             </Card.Text>

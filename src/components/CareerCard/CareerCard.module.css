@@ -3,8 +3,8 @@
     border: 1.5px solid black;
     box-shadow: 0;
     transition: box-shadow 0.5s;
-    text-overflow: ellipsis; 
-    overflow: hidden; 
+    height: 100%;
+
 }
 
 .main:hover{

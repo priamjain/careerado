@@ -9,21 +9,21 @@ function Allcards(): ReactElement {
             <h2 className="h2 text-dark">Find a roadmap for your passion</h2>
             <div className="row">
                 <CareerCard
-                    id={roadmapsData.react.id}
-                    title={roadmapsData.react.title}
-                    description={roadmapsData.react.description}
+                    id={roadmapsData.roadmaps.react.id}
+                    title={roadmapsData.roadmaps.react.title}
+                    description={roadmapsData.roadmaps.react.descriptionSmall}
                     comingsoon={false}
                 />
                 <CareerCard
-                    id={roadmapsData.backend.id}
-                    title={roadmapsData.backend.title}
-                    description={roadmapsData.backend.description}
+                    id={roadmapsData.roadmaps.backend.id}
+                    title={roadmapsData.roadmaps.backend.title}
+                    description={roadmapsData.roadmaps.backend.descriptionSmall}
                     comingsoon={false}
                 />
                 <CareerCard
-                    id={roadmapsData.devops.id}
-                    title={roadmapsData.devops.title}
-                    description={roadmapsData.devops.description}
+                    id={roadmapsData.roadmaps.devops.id}
+                    title={roadmapsData.roadmaps.devops.title}
+                    description={roadmapsData.roadmaps.devops.descriptionSmall}
                     comingsoon={true}
                 />
             </div>

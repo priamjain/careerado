@@ -22,18 +22,20 @@ function App() {
 
           <Route exact path="/roadmap/react">
             <Roadmap
-                id={roadmapsData.react.id}
-                title={roadmapsData.react.title}
-                description={roadmapsData.react.description}
+                id={roadmapsData.roadmaps.react.id}
+                title={roadmapsData.roadmaps.react.title}
+                descriptionSmall={roadmapsData.roadmaps.react.descriptionSmall}
+                descriptionLarge={roadmapsData.roadmaps.react.descriptionLarge}
                 roadmap={ReactjsRoadmap}
             />
           </Route>
 
           <Route exact path="/roadmap/backend">
             <Roadmap
-                id={roadmapsData.backend.id}
-                title={roadmapsData.backend.title}
-                description={roadmapsData.backend.description}
+                id={roadmapsData.roadmaps.backend.id}
+                title={roadmapsData.roadmaps.backend.title}
+                descriptionSmall={roadmapsData.roadmaps.backend.descriptionSmall}
+                descriptionLarge={roadmapsData.roadmaps.backend.descriptionLarge}
                 roadmap={BackendRoadmap}
             />
           </Route>
