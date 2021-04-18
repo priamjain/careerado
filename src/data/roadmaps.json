@@ -2,12 +2,12 @@
     "react":{
         "id":"react",
         "title":"React",
-        "description":"Make websites, mobile apps, desktop apps using React library maintained by facebook and a community of individual developers"
+        "description":"Make websites, mobile apps, desktop apps using React library - maintained by facebook and a community of individual developers."
     },
     "backend":{
         "id":"backend",
         "title":"Backend Development",
-        "description":"Implement 'behind-the-scenes' functionality of web applications. Communicate with database, use REST / graphql to make API for communication with frontend"
+        "description":"Implement 'behind-the-scenes' functionality of web applications. Communicate with database, use REST / graphql to make API for communication with frontend, etc."
     },
     "devops":{
         "id":"devops",

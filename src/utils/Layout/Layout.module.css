@@ -1,5 +1,5 @@
 .c2{
-    background-color: #F5F6FF;    
+    background-color: var(--off-white);    
 }
 
 @media screen and (min-width:768px) {

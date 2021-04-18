@@ -1,6 +1,6 @@
 # https://www.robotstxt.org/robotstxt.html
 
 User-agent: *
-Allow:
+Disallow:
 
 Sitemap: http://www.careerado.com/sitemap.xml

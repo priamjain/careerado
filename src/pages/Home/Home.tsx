@@ -14,14 +14,14 @@ export const Home = (props: Props) => {
                 <title>Careerado, the roadmap library</title>
                 <meta
                     name="description"
-                    content="Find a roadmap for your passion."
+                    content="Find a roadmap for your passion and grow in your career."
                 />
                 <meta property="og:title" content="Careerado, the roadmap library"/>
-                <meta property="og:description" content="Find a roadmap for your passion."/>
+                <meta property="og:description" content="Find a roadmap for your passion and grow in your career."/>
                 <meta property="og:image" content={"https://careerado.com/"+Logo}/>
                 <meta property="og:url" content="https://careerado.com"/>
                 <meta property="twitter:title" content="Careerado, the roadmap library"/>
-                <meta property="twitter:description" content="Find a roadmap for your passion."/>
+                <meta property="twitter:description" content="Find a roadmap for your passion and grow in your career."/>
                 <meta property="twitter:image" content={"https://careerado.com/"+Logo}/>
             </Helmet>
             <Allcards/>

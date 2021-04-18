@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { Helmet } from 'react-helmet'
 import { Layout } from '../../utils/Layout/Layout'
 
@@ -11,6 +11,9 @@ interface Props {
 }
 
 export const Roadmap = (props: Props) => {
+    useEffect(() => {
+        window.scrollTo(0, 0)
+      })
     return (
             <Layout>
                 <Helmet>
@@ -22,7 +25,7 @@ export const Roadmap = (props: Props) => {
                     <meta property="og:title" content={props.title + " Roadmap"}/>
                     <meta property="og:description" content={props.description}/>
                     <meta property="og:image" content={"https://careerado.com/"+props.roadmap}/>
-                    <meta property="og:url" content={`https://careerado.com/roadmap/${props.title}`}/>
+                    <meta property="og:url" content={`https://careerado.com/roadmap/${props.id}`}/>
                     <meta property="twitter:title" content={props.title + " Roadmap"}/>
                     <meta property="twitter:description" content={props.description}/>
                     <meta property="twitter:image" content={"https://careerado.com/"+props.roadmap}/>

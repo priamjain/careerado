@@ -11,7 +11,7 @@ interface Props {
 
 export const CareerCard = (props: Props) => {
     return (
-            <div className="col-12 col-md-6 col-xl-4 p-3">
+            <div className="col-12 p-3 align-items-stretch">
                 <Link to={`${!props.comingsoon?("/roadmap/"+props.id):'#'}`} className="no_style_link">
                     <Card className={styles.main}>
                         <Card.Body>
@@ -20,7 +20,7 @@ export const CareerCard = (props: Props) => {
                             </div>}
                             <Card.Title>{props.title}</Card.Title>
                             <Card.Text>
-                            {props.description}...
+                            {props.description}
                             </Card.Text>
                         </Card.Body>
                     </Card>
