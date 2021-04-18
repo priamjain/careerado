@@ -9,23 +9,33 @@ export const Sidebar = (props: Props) => {
     return (
         <div className={styles.main}>
             <p>Most Visited</p>
-            <div className="mt-3">
-                <Link to="/roadmap/react" className="no_style_link">
-                    <div className={"p-3 border border-dark rounded mt-2 text-center " + styles.card}>React</div>
-                </Link>
-                <Link to="/roadmap/backend" className="no_style_link">
-                    <div className={"p-3 border border-dark rounded mt-2 text-center " + styles.card}>Backend Web Development</div>
-                </Link>
-            </div>
+            <ul className={"mt-3 "+styles.list}>
+                <li className={"border border-dark rounded mt-2 text-center " + styles.card}>
+                    <Link to="/roadmap/react" className="p-3 no_style_link d-block w-100 h-100">
+                        React
+                    </Link>
+                </li>
+
+                <li className={"border border-dark rounded mt-2 text-center " + styles.card}>
+                    <Link to="/roadmap/backend" className="p-3 no_style_link d-block w-100 h-100">
+                        Backend Development
+                    </Link>
+                </li>
+            </ul>
             <p className="mt-4">Coming Soon</p>
-            <div className="mt-3">
-                <Link to="#" className="no_style_link">
-                    <div className={"p-3 border border-dark rounded mt-2 text-center " + styles.card}>Devops</div>
-                </Link>
-                <Link to="#" className="no_style_link">
-                    <div className={"p-3 border border-dark rounded mt-2 text-center " + styles.card}>Frontend Web Development</div>
-                </Link>
-            </div>
+            <ul className={"mt-3 "+styles.list}>
+                <li className={"border border-dark rounded mt-2 text-center " + styles.card}>
+                    <Link to="#" className="p-3 no_style_link d-block w-100 h-100">
+                        Devops
+                    </Link>
+                </li>
+
+                <li className={"border border-dark rounded mt-2 text-center " + styles.card}>
+                    <Link to="#" className="p-3 no_style_link d-block w-100 h-100">
+                        Frontend Development
+                    </Link>
+                </li>
+            </ul>
         </div>
     )
 }

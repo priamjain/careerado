@@ -6,6 +6,11 @@
     background-color: white;
 }
 
+.list{
+    list-style-type: none;
+    padding: 0;
+}
+
 @media screen and (min-width:576px) {
     .main{
         margin: 41px 20px;
