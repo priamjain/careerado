@@ -20,7 +20,7 @@ export const Footer = (props: Props) => {
                     The roadmap library
                 </div>
                 <div className="text-muted mt-3 w-75">
-                    Roadmaps to help you choose your passion and achieve your goals.
+                    Find a roadmap for your passion and grow in your career.
                 </div>
             </div>
             <div className="col-12 col-md-4">
