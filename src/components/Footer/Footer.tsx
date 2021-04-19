@@ -24,7 +24,7 @@ export const Footer = (props: Props) => {
                 </div>
             </div>
             <div className="col-12 col-md-4">
-                <a href="https://priamjain.me" target="_blank_"className="no_style_link h5 mb-4">CONTACT US</a>
+                <a href="mailto:contact@priamjain.me" target="_blank_"className="no_style_link h5 mb-4">CONTACT US</a>
                 <p className="h5 mt-2"><span>© </span><span className="align-text-top">careerado.com</span></p>
             </div>
         </div>
