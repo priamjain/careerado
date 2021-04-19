@@ -21,7 +21,7 @@ function App() {
             <Home/>
           </Route>
 
-          <Route exact path="/roadmap/react">
+          <Route path="/roadmap/react">
             <Roadmap
                 id={roadmapsData.roadmaps.react.id}
                 title={roadmapsData.roadmaps.react.title}
@@ -31,7 +31,7 @@ function App() {
             />
           </Route>
 
-          <Route exact path="/roadmap/backend">
+          <Route path="/roadmap/backend">
             <Roadmap
                 id={roadmapsData.roadmaps.backend.id}
                 title={roadmapsData.roadmaps.backend.title}
@@ -41,7 +41,7 @@ function App() {
             />
           </Route>
 
-          <Route exact path="/roadmap/datascience">
+          <Route path="/roadmap/datascience">
             <Roadmap
                 id={roadmapsData.roadmaps.datascience.id}
                 title={roadmapsData.roadmaps.datascience.title}

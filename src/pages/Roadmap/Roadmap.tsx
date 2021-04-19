@@ -1,7 +1,10 @@
 import React,{useEffect} from 'react'
+import { Nav } from 'react-bootstrap'
 import { Helmet } from 'react-helmet'
+import { Route, Switch } from 'react-router'
+import { NavLink } from 'react-router-dom'
 import { Layout } from '../../utils/Layout/Layout'
-
+import styles from './Roadmap.module.css'
 
 interface Props {
     id:string,
@@ -15,6 +18,8 @@ export const Roadmap = (props: Props) => {
     useEffect(() => {
         window.scrollTo(0, 0)
       })
+    
+    
     return (
             <Layout>
                 <Helmet>
@@ -31,16 +36,51 @@ export const Roadmap = (props: Props) => {
                     <meta property="twitter:description" content={`${props.descriptionSmall}`}/>
                     <meta property="twitter:image" content={"https://careerado.com/"+props.roadmap}/>
                 </Helmet>
-                <h1 className="text-center h2 mt-3">
+                <h1 className={"text-center h2 mt-3 mb-5 border-bottom border-dark pb-3 pl-5 pr-5 mr-auto ml-auto "+styles.title}>
                     {props.title} Roadmap
                 </h1>
-                <article className="text-dark text-center w-75 ml-auto mr-auto">
+                <section className="text-dark text-center w-75 ml-auto mr-auto">
                     <h2 className="h5 mb-3">{props.descriptionSmall}</h2>
                     <p>{props.descriptionLarge}</p>
-                </article>
-                <div className="mt-5">
-                    <img src={props.roadmap} alt={`${props.title} Roadmap`} width="100%"/>
-                </div>
+                </section>
+
+                <Nav variant="tabs" fill className="mt-5">
+                    <Nav.Item>
+                        <Nav.Link 
+                            as={NavLink} 
+                            to={"/roadmap/"+props.id+"/"} 
+                            exact={true}
+                            className="text-dark"
+                            activeClassName="border border-dark"
+                            >Roadmap</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link 
+                            as={NavLink} 
+                            to={"/roadmap/"+props.id+"/resources/"} 
+                            exact={true}
+                            className="text-dark"
+                            activeClassName="border border-dark"
+                            >Resources</Nav.Link>
+                    </Nav.Item>
+                </Nav>
+
+                <Switch>
+
+                    <Route exact path={"/roadmap/"+props.id+"/"}>
+                        <div className="mt-5">
+                            <img src={props.roadmap} alt={`${props.title} Roadmap`} width="100%"/>
+                        </div>
+                    </Route>
+               
+                    <Route exact path={"/roadmap/"+props.id+"/resources/"}>
+                        <article className="mt-5 text-center">
+                            COMING SOON
+                        </article>
+                    </Route>
+                    
+                </Switch>
+
             </Layout>
     )
 }
