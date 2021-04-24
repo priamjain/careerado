@@ -27,6 +27,12 @@ function Allcards(): ReactElement {
                     comingsoon={false}
                 />
                 <CareerCard
+                    id={roadmapsData.roadmaps.guitar.id}
+                    title={roadmapsData.roadmaps.guitar.title}
+                    description={roadmapsData.roadmaps.guitar.descriptionSmall}
+                    comingsoon={false}
+                />
+                <CareerCard
                     id={roadmapsData.roadmaps.devops.id}
                     title={roadmapsData.roadmaps.devops.title}
                     description={roadmapsData.roadmaps.devops.descriptionSmall}

@@ -27,6 +27,12 @@ export const Sidebar = (props: Props) => {
                         Data Science
                     </Link>
                 </li>
+
+                <li className={"rounded mt-2 text-center " + styles.card}>
+                    <Link to="/roadmap/guitar" className="p-3 no_style_link d-block w-100 h-100">
+                        Guitar
+                    </Link>
+                </li>
             </ul>
             <p className="mt-4">Coming Soon</p>
             <ul className={"mt-3 "+styles.list}>

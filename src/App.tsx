@@ -7,6 +7,7 @@ import { Roadmap } from './pages/Roadmap/Roadmap';
 import ReactRoadmap from './assets/roadmaps/reactjs.png'
 import BackendRoadmap from './assets/roadmaps/backend.png'
 import DataScienceRoadmap from './assets/roadmaps/datascience.png'
+import GuitarRoadmap from './assets/roadmaps/guitar.png'
 import roadmapsData  from './data/roadmaps.json'
 import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage';
 
@@ -48,6 +49,16 @@ function App() {
                 descriptionSmall={roadmapsData.roadmaps.datascience.descriptionSmall}
                 descriptionLarge={roadmapsData.roadmaps.datascience.descriptionLarge}
                 roadmap={DataScienceRoadmap}
+            />
+          </Route>
+
+          <Route path="/roadmap/guitar">
+            <Roadmap
+                id={roadmapsData.roadmaps.guitar.id}
+                title={roadmapsData.roadmaps.guitar.title}
+                descriptionSmall={roadmapsData.roadmaps.guitar.descriptionSmall}
+                descriptionLarge={roadmapsData.roadmaps.guitar.descriptionLarge}
+                roadmap={GuitarRoadmap}
             />
           </Route>
 
