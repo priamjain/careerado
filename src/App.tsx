@@ -4,7 +4,7 @@ import './assets/css/general.css'
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom'
 import { Home } from './pages/Home/Home';
 import { Roadmap } from './pages/Roadmap/Roadmap';
-import roadmapsData  from './data/data'
+import roadmapsData  from './data/RoadmapData'
 import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage';
 
 interface RoadmapInterface {
