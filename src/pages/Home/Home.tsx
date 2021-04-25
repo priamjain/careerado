@@ -17,7 +17,7 @@ export const Home = (props: Props) => {
                     content="Find a roadmap for your passion and grow in your career."
                 />
                 <meta property="og:title" content="Careerado, the roadmap library"/>
-                <meta property="og:description" content="Find a roadmap for your passion and grow in your career."/>
+                <meta property="og:description" content="Find a roadmap for your passion and grow in your career. Step by step roadmap models to help you get started with a new skill and assiste you wherever you get stuck. "/>
                 <meta property="og:image" content={"https://careerado.com/"+Logo}/>
                 <meta property="og:url" content="https://careerado.com"/>
                 <meta property="twitter:title" content="Careerado, the roadmap library"/>
