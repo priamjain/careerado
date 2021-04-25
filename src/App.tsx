@@ -4,12 +4,17 @@ import './assets/css/general.css'
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom'
 import { Home } from './pages/Home/Home';
 import { Roadmap } from './pages/Roadmap/Roadmap';
-import ReactRoadmap from './assets/roadmaps/reactjs.png'
-import BackendRoadmap from './assets/roadmaps/backend.png'
-import DataScienceRoadmap from './assets/roadmaps/datascience.png'
-import GuitarRoadmap from './assets/roadmaps/guitar.png'
-import roadmapsData  from './data/roadmaps.json'
+import roadmapsData  from './data/data'
 import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage';
+
+interface RoadmapInterface {
+  id: string,
+  title: string,
+  descriptionSmall: string,
+  descriptionLarge: string,
+  comingsoon: boolean,
+  image: string | null,
+}
 
 function App() {
 
@@ -22,46 +27,25 @@ function App() {
             <Home/>
           </Route>
 
-          <Route path="/roadmap/react">
-            <Roadmap
-                id={roadmapsData.roadmaps.react.id}
-                title={roadmapsData.roadmaps.react.title}
-                descriptionSmall={roadmapsData.roadmaps.react.descriptionSmall}
-                descriptionLarge={roadmapsData.roadmaps.react.descriptionLarge}
-                roadmap={ReactRoadmap}
-            />
-          </Route>
-
-          <Route path="/roadmap/backend">
-            <Roadmap
-                id={roadmapsData.roadmaps.backend.id}
-                title={roadmapsData.roadmaps.backend.title}
-                descriptionSmall={roadmapsData.roadmaps.backend.descriptionSmall}
-                descriptionLarge={roadmapsData.roadmaps.backend.descriptionLarge}
-                roadmap={BackendRoadmap}
-            />
-          </Route>
-
-          <Route path="/roadmap/datascience">
-            <Roadmap
-                id={roadmapsData.roadmaps.datascience.id}
-                title={roadmapsData.roadmaps.datascience.title}
-                descriptionSmall={roadmapsData.roadmaps.datascience.descriptionSmall}
-                descriptionLarge={roadmapsData.roadmaps.datascience.descriptionLarge}
-                roadmap={DataScienceRoadmap}
-            />
-          </Route>
-
-          <Route path="/roadmap/guitar">
-            <Roadmap
-                id={roadmapsData.roadmaps.guitar.id}
-                title={roadmapsData.roadmaps.guitar.title}
-                descriptionSmall={roadmapsData.roadmaps.guitar.descriptionSmall}
-                descriptionLarge={roadmapsData.roadmaps.guitar.descriptionLarge}
-                roadmap={GuitarRoadmap}
-            />
-          </Route>
-
+          {
+            roadmapsData.map((category)=>{
+              return(
+                category.roadmaps.map((roadmap:RoadmapInterface)=>{
+                  return(
+                    <Route path={"/roadmap/"+roadmap.id}>
+                      <Roadmap
+                          id={roadmap.id}
+                          title={roadmap.title}
+                          descriptionSmall={roadmap.descriptionSmall}
+                          descriptionLarge={roadmap.descriptionLarge}
+                          roadmap={roadmap.image}
+                      />
+                    </Route>
+                    )
+                  })
+              )
+             })
+            }          
           <Route>
                <NotFoundPage/>        
           </Route>

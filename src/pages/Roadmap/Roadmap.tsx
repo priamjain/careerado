@@ -11,7 +11,7 @@ interface Props {
     title: string,
     descriptionSmall: string,
     descriptionLarge: string,
-    roadmap:string
+    roadmap:string | null
 }
 
 export const Roadmap = (props: Props) => {
@@ -69,7 +69,7 @@ export const Roadmap = (props: Props) => {
 
                     <Route exact path={"/roadmap/"+props.id+"/"}>
                         <div className="mt-5">
-                            <img src={props.roadmap} alt={`${props.title} Roadmap`} width="100%"/>
+                            {props.roadmap && <img src={props.roadmap} alt={`${props.title} Roadmap`} width="100%"/>}
                         </div>
                     </Route>
                

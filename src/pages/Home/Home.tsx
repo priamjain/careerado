@@ -1,13 +1,34 @@
-import React from 'react'
+import React, {useState,useEffect} from 'react'
 import Allcards from '../../containers/Allcards/Allcards';
 import { Layout } from '../../utils/Layout/Layout';
 import {Helmet} from 'react-helmet'
 import Logo from '../../assets/logo.png'
+import data from '../../data/data';
+
 interface Props {
-    
+
+}
+
+interface Roadmap {
+    id: string,
+    title: string,
+    descriptionSmall: string,
+    descriptionLarge: string,
+    comingsoon: boolean,
+    image: string | null,
 }
 
 export const Home = (props: Props) => {
+    const [roadmaps, setRoadmaps] = useState<Roadmap[] | []>([])
+    useEffect(() => {
+        let allRoadmaps : Roadmap[]  = []
+        data.forEach(category=>{
+            allRoadmaps = allRoadmaps.concat(category.roadmaps)
+        })
+        setRoadmaps(allRoadmaps)
+    }, [])
+    
+    
     return (
         <Layout>
             <Helmet>
@@ -24,7 +45,7 @@ export const Home = (props: Props) => {
                 <meta property="twitter:description" content="Find a roadmap for your passion and grow in your career."/>
                 <meta property="twitter:image" content={"https://careerado.com/"+Logo}/>
             </Helmet>
-            <Allcards/>
+            <Allcards roadmaps={roadmaps}/>
         </Layout>
     )
 }
