@@ -3,7 +3,7 @@ import Allcards from '../../containers/Allcards/Allcards';
 import { Layout } from '../../utils/Layout/Layout';
 import {Helmet} from 'react-helmet'
 import Logo from '../../assets/logo.png'
-import data from '../../data/RoadmapData';
+import data from '../../actions/RoadmapData.service';
 
 interface Props {
 
