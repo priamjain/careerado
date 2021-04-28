@@ -23,26 +23,30 @@ const Login = (props: Props) => {
             })
         }
 
-    if(currentUser){
-        return(<Redirect to="/"/>)
+    if(!currentUser){
+        onSignIn();
+        
     }
-    return (
-        <Layout>
-            <Toast show={signInFailed} onClose={()=>setsignInFailed(false)} delay={3000} autohide className={"bg-danger "+style.toast}>
-                <Toast.Header>
-                    <strong className="mr-auto">Login Failed</strong>
-                </Toast.Header>
+    return(<Redirect to="/"/>)
+    
+    // return (
+
+    //     <Layout>
+    //         <Toast show={signInFailed} onClose={()=>setsignInFailed(false)} delay={3000} autohide className={"bg-danger "+style.toast}>
+    //             <Toast.Header>
+    //                 <strong className="mr-auto">Login Failed</strong>
+    //             </Toast.Header>
                 
-            </Toast>
-            <img
-                src={signInwithGoogleIcon}
-                onClick={onSignIn}
-                alt="Sign In with Google"
-                height="50"
-                className="ml-auto d-block mr-auto mt-5"
-            />
-        </Layout>
-    )
+    //         </Toast>
+    //         <img
+    //             src={signInwithGoogleIcon}
+    //             onClick={onSignIn}
+    //             alt="Sign In with Google"
+    //             height="50"
+    //             className="ml-auto d-block mr-auto mt-5"
+    //         />
+    //     </Layout>
+    // )
 }
 
 export default Login

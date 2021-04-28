@@ -15,12 +15,12 @@ export const Navbar = () => {
                 <BootstrapNavbar.Toggle aria-controls="basic-navbar-nav" />
                 <BootstrapNavbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto">
-                        <Nav.Link as={Link} to="/" className="text-dark mr-4">Home</Nav.Link>
+                        <Nav.Link as={Link} to="/" className="ml-auto text-dark pr-4">Home</Nav.Link>
                         {
                             currentUser?
-                            <div>
+                            <div className="ml-auto">
                                 <Dropdown className="p-0"> 
-                                    <Dropdown.Toggle variant="white" className="p-1 shadow-none">
+                                    <Dropdown.Toggle variant="white" className="pt-1 pb-1 pr-4 shadow-none">
                                         <img height="30" width="30" src={currentUser.photoURL || undefined} alt="Profile" className={"mr-2 "+styles.profile_pic}/>
                                         {currentUser.displayName}
                                     </Dropdown.Toggle>
