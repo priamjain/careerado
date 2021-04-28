@@ -7,6 +7,8 @@ import { Roadmap } from './pages/Roadmap/Roadmap';
 import roadmapsData  from './actions/RoadmapData.service'
 import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage';
 import Login from './pages/Login/Login';
+import { AuthProvider } from './context/AuthContext';
+import { SignOut } from './pages/SignOut/SignOut';
 
 interface RoadmapInterface {
   id: string,
@@ -20,7 +22,7 @@ interface RoadmapInterface {
 function App() {
 
   return (
-    <div>
+    <AuthProvider>
       <Router>
         <Switch>
 
@@ -33,7 +35,7 @@ function App() {
               return(
                 category.roadmaps.map((roadmap:RoadmapInterface)=>{
                   return(
-                    <Route path={"/roadmap/"+roadmap.id}>
+                    <Route exact path={"/roadmap/"+roadmap.id}>
                       <Roadmap
                           id={roadmap.id}
                           title={roadmap.title}
@@ -47,15 +49,19 @@ function App() {
               )
              })
             }
-          <Route path="/login">
+          <Route exact path="/login">
             <Login/>
+          </Route>
+
+          <Route exact path="/signout">
+              <SignOut/>
           </Route>          
           <Route>
                <NotFoundPage/>        
           </Route>
         </Switch>
       </Router>
-    </div>
+    </AuthProvider>
   );
 }
 

@@ -9,3 +9,6 @@
 :root{
     --off-white: #F5F6FF;
 }
+body{
+    max-width: 100%;
+}
