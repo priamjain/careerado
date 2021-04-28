@@ -22,20 +22,6 @@ export const Roadmap = (props: Props) => {
     
     return (
             <Layout>
-                <Helmet>
-                    <title>{props.title} Roadmap</title>
-                    <meta
-                        name="description"
-                        content={`${props.descriptionSmall} ${props.descriptionLarge}`}
-                    />
-                    <meta property="og:title" content={props.title + " Roadmap"}/>
-                    <meta property="og:description" content={`${props.descriptionSmall}`}/>
-                    <meta property="og:image" content={"https://careerado.com/"+props.roadmap}/>
-                    <meta property="og:url" content={`https://careerado.com/roadmap/${props.id}`}/>
-                    <meta property="twitter:title" content={props.title + " Roadmap"}/>
-                    <meta property="twitter:description" content={`${props.descriptionSmall}`}/>
-                    <meta property="twitter:image" content={"https://careerado.com/"+props.roadmap}/>
-                </Helmet>
                 <h1 className={"text-center h2 mt-3 mb-5 border-bottom border-dark pb-3 pl-5 pr-5 mr-auto ml-auto "+styles.title}>
                     {props.title} Roadmap
                 </h1>
@@ -63,17 +49,74 @@ export const Roadmap = (props: Props) => {
                             activeClassName="border border-dark"
                             >Resources</Nav.Link>
                     </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link 
+                            as={NavLink} 
+                            to={"/roadmap/"+props.id+"/suggestchanges/"} 
+                            exact={true}
+                            className="text-dark"
+                            activeClassName="border border-dark"
+                            >Suggest Changes</Nav.Link>
+                    </Nav.Item>
                 </Nav>
 
                 <Switch>
 
                     <Route exact path={"/roadmap/"+props.id+"/"}>
+                        <Helmet>
+                            <title>{props.title} Roadmap</title>
+                            <meta
+                                name="description"
+                                content={`${props.descriptionSmall} ${props.descriptionLarge}`}
+                            />
+                            <meta property="og:title" content={props.title + " Roadmap"}/>
+                            <meta property="og:description" content={`${props.descriptionSmall}`}/>
+                            <meta property="og:image" content={"https://careerado.com/"+props.roadmap}/>
+                            <meta property="og:url" content={`https://careerado.com/roadmap/${props.id}`}/>
+                            <meta property="twitter:title" content={props.title + " Roadmap"}/>
+                            <meta property="twitter:description" content={`${props.descriptionSmall}`}/>
+                            <meta property="twitter:image" content={"https://careerado.com/"+props.roadmap}/>
+                        </Helmet>
                         <div className="mt-5">
                             {props.roadmap && <img src={props.roadmap} alt={`${props.title} Roadmap`} width="100%"/>}
                         </div>
                     </Route>
                
                     <Route exact path={"/roadmap/"+props.id+"/resources/"}>
+                        <Helmet>
+                            <title>Resources - {props.title} Roadmap</title>
+                            <meta
+                                name="description"
+                                content={`${props.descriptionSmall} ${props.descriptionLarge}`}
+                            />
+                            <meta property="og:title" content={"Resources - "+props.title + " Roadmap"}/>
+                            <meta property="og:description" content={`Resources - ${props.descriptionSmall}`}/>
+                            <meta property="og:image" content={"https://careerado.com/"+props.roadmap}/>
+                            <meta property="og:url" content={`https://careerado.com/roadmap/${props.id}/resources`}/>
+                            <meta property="twitter:title" content={"Resources - "+props.title + " Roadmap"}/>
+                            <meta property="twitter:description" content={`Resources - ${props.descriptionSmall}`}/>
+                            <meta property="twitter:image" content={"https://careerado.com/"+props.roadmap}/>
+                        </Helmet>
+                        <article className="mt-5 text-center">
+                            COMING SOON
+                        </article>
+                    </Route>
+
+                    <Route exact path={"/roadmap/"+props.id+"/suggestchanges/"}>
+                        <Helmet>
+                            <title>Suggest Changes - {props.title} Roadmap</title>
+                            <meta
+                                name="description"
+                                content={`${props.descriptionSmall} ${props.descriptionLarge}`}
+                            />
+                            <meta property="og:title" content={"Suggest Changes - "+props.title + " Roadmap"}/>
+                            <meta property="og:description" content={`Suggest Changes - ${props.descriptionSmall}`}/>
+                            <meta property="og:image" content={"https://careerado.com/"+props.roadmap}/>
+                            <meta property="og:url" content={`https://careerado.com/roadmap/${props.id}/suggestchanges`}/>
+                            <meta property="twitter:title" content={"Suggest Changes - "+props.title + " Roadmap"}/>
+                            <meta property="twitter:description" content={`Suggest Changes - ${props.descriptionSmall}`}/>
+                            <meta property="twitter:image" content={"https://careerado.com/"+props.roadmap}/>
+                        </Helmet>
                         <article className="mt-5 text-center">
                             COMING SOON
                         </article>

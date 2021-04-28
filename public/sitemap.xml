@@ -9,46 +9,77 @@
   <lastmod>2021-04-18T13:43:35+00:00</lastmod>
   <priority>1.00</priority>
 </url>
-<url>
-  <loc>https://careerado.com/roadmap/react/</loc>
-  <lastmod>2021-04-18T13:43:35+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://careerado.com/roadmap/backend/</loc>
-  <lastmod>2021-04-18T13:43:35+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://careerado.com/roadmap/guitar/</loc>
-  <lastmod>2021-04-25T13:43:35+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://careerado.com/roadmap/datascience/</loc>
-  <lastmod>2021-04-18T13:43:35+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://careerado.com/roadmap/react/resources/</loc>
-  <lastmod>2021-04-19T22:09:09+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://careerado.com/roadmap/backend/resources/</loc>
-  <lastmod>2021-04-19T22:09:09+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://careerado.com/roadmap/datascience/resources/</loc>
-  <lastmod>2021-04-19T22:09:09+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://careerado.com/roadmap/guitar/resources/</loc>
-  <lastmod>2021-04-25T22:09:09+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
+
+
+
+  <url>
+    <loc>https://careerado.com/roadmap/react/</loc>
+    <lastmod>2021-04-18T13:43:35+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://careerado.com/roadmap/backend/</loc>
+    <lastmod>2021-04-18T13:43:35+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://careerado.com/roadmap/guitar/</loc>
+    <lastmod>2021-04-25T13:43:35+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://careerado.com/roadmap/datascience/</loc>
+    <lastmod>2021-04-18T13:43:35+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+
+
+
+    <url>
+      <loc>https://careerado.com/roadmap/react/resources/</loc>
+      <lastmod>2021-04-19T22:09:09+00:00</lastmod>
+      <priority>0.64</priority>
+    </url>
+    <url>
+      <loc>https://careerado.com/roadmap/backend/resources/</loc>
+      <lastmod>2021-04-19T22:09:09+00:00</lastmod>
+      <priority>0.64</priority>
+    </url>
+    <url>
+      <loc>https://careerado.com/roadmap/datascience/resources/</loc>
+      <lastmod>2021-04-19T22:09:09+00:00</lastmod>
+      <priority>0.64</priority>
+    </url>
+    <url>
+      <loc>https://careerado.com/roadmap/guitar/resources/</loc>
+      <lastmod>2021-04-25T22:09:09+00:00</lastmod>
+      <priority>0.64</priority>
+    </url>
+
+
+
+
+    <url>
+      <loc>https://careerado.com/roadmap/react/suggestchanges/</loc>
+      <lastmod>2021-04-19T22:09:09+00:00</lastmod>
+      <priority>0.64</priority>
+    </url>
+    <url>
+      <loc>https://careerado.com/roadmap/backend/suggestchanges/</loc>
+      <lastmod>2021-04-19T22:09:09+00:00</lastmod>
+      <priority>0.64</priority>
+    </url>
+    <url>
+      <loc>https://careerado.com/roadmap/datascience/suggestchanges/</loc>
+      <lastmod>2021-04-19T22:09:09+00:00</lastmod>
+      <priority>0.64</priority>
+    </url>
+    <url>
+      <loc>https://careerado.com/roadmap/guitar/suggestchanges/</loc>
+      <lastmod>2021-04-25T22:09:09+00:00</lastmod>
+      <priority>0.64</priority>
+    </url>
 
 
 </urlset>

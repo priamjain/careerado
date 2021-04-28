@@ -35,7 +35,7 @@ function App() {
               return(
                 category.roadmaps.map((roadmap:RoadmapInterface)=>{
                   return(
-                    <Route exact path={"/roadmap/"+roadmap.id}>
+                    <Route path={"/roadmap/"+roadmap.id}>
                       <Roadmap
                           id={roadmap.id}
                           title={roadmap.title}
