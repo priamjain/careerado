@@ -1,9 +1,9 @@
-import React,{useState,useContext} from 'react'
-import { Layout } from '../../utils/Layout/Layout'
-import signInwithGoogleIcon from '../../assets/illustrations/signInWithGoogle.png'
+import React,{useContext} from 'react'
+// import { Layout } from '../../utils/Layout/Layout'
+// import signInwithGoogleIcon from '../../assets/illustrations/signInWithGoogle.png'
 import { AuthContext } from '../../context/AuthContext'
-import { Toast } from 'react-bootstrap'
-import style from './Login.module.css'
+// import { Toast } from 'react-bootstrap'
+// import style from './Login.module.css'
 import { signInWithGoogle } from '../../utils/firebaseUtils'
 import { Redirect } from 'react-router'
 
@@ -14,12 +14,12 @@ interface Props {
 
 const Login = (props: Props) => { 
     const currentUser : any = useContext(AuthContext);
-    const [signInFailed, setsignInFailed] = useState(false)
+    // const [signInFailed, setsignInFailed] = useState(false)
     const onSignIn = () =>{ 
         signInWithGoogle()
             .then()
             .catch(reject=>{
-                setsignInFailed(true);
+                // setsignInFailed(true);
             })
         }
 
