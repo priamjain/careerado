@@ -3,6 +3,7 @@ import { Nav } from 'react-bootstrap'
 import { Helmet } from 'react-helmet'
 import { Route, Switch } from 'react-router'
 import { NavLink } from 'react-router-dom'
+import { SuggestChanges } from '../../components/SuggestChanges/SuggestChanges'
 import { Layout } from '../../utils/Layout/Layout'
 import styles from './Roadmap.module.css'
 
@@ -103,23 +104,7 @@ export const Roadmap = (props: Props) => {
                     </Route>
 
                     <Route exact path={"/roadmap/"+props.id+"/suggestchanges/"}>
-                        <Helmet>
-                            <title>Suggest Changes - {props.title} Roadmap</title>
-                            <meta
-                                name="description"
-                                content={`${props.descriptionSmall} ${props.descriptionLarge}`}
-                            />
-                            <meta property="og:title" content={"Suggest Changes - "+props.title + " Roadmap"}/>
-                            <meta property="og:description" content={`Suggest Changes - ${props.descriptionSmall}`}/>
-                            <meta property="og:image" content={"https://careerado.com/"+props.roadmap}/>
-                            <meta property="og:url" content={`https://careerado.com/roadmap/${props.id}/suggestchanges`}/>
-                            <meta property="twitter:title" content={"Suggest Changes - "+props.title + " Roadmap"}/>
-                            <meta property="twitter:description" content={`Suggest Changes - ${props.descriptionSmall}`}/>
-                            <meta property="twitter:image" content={"https://careerado.com/"+props.roadmap}/>
-                        </Helmet>
-                        <article className="mt-5 text-center">
-                            COMING SOON
-                        </article>
+                        <SuggestChanges {...props}/>
                     </Route>
                     
                 </Switch>

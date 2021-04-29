@@ -16,7 +16,7 @@ const Login = (props: Props) => {
     const currentUser : any = useContext(AuthContext);
     // const [signInFailed, setsignInFailed] = useState(false)
     const onSignIn = () =>{ 
-        signInWithGoogle()
+            signInWithGoogle()
             .then()
             .catch(reject=>{
                 // setsignInFailed(true);
