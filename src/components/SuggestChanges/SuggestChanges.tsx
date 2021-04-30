@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Form, FormControl, Modal, Spinner } from 'react-bootstrap'
 import { Helmet } from 'react-helmet'
-import { getSuggestionRef, getSuggestionsSnapshot } from '../../utils/firebaseUtils'
+import { getSuggestionRef, getSuggestionsSnapshot, voteSuggestion, getVoteSuggestions} from '../../actions/firebaseUtils'
+import firebase from '../../firebase'
 
 interface Props {
     id:string,
@@ -17,12 +18,15 @@ interface SuggestChangesInterface {
     description: string,
     upVotes: number,
     downVotes: number,
-    createdAt: string,
-    updatedAt: string
+    createdAt: firebase.firestore.Timestamp,
+    updatedAt: firebase.firestore.Timestamp,
+}
+
+interface LocalSuggestChangesInterface extends SuggestChangesInterface {
+    voted : 'upVote' | 'downVote' | null
 }
 
 export const SuggestChanges = (props: Props) => {
-    const date = new Date();
     const [loading, setLoading] = useState(false)
 
     const [postData, setPostData] = useState<SuggestChangesInterface>(
@@ -32,11 +36,11 @@ export const SuggestChanges = (props: Props) => {
             description:"",
             upVotes:0,
             downVotes:0,
-            createdAt: date.toUTCString(),
-            updatedAt: date.toUTCString(),
+            createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
+            updatedAt: firebase.firestore.Timestamp.fromDate(new Date()),
         })
     const [showModal, setShowModal] = useState(false)
-    const [suggestChanges, setSuggestChanges] = useState<SuggestChangesInterface[]>([])
+    const [suggestChanges, setSuggestChanges] = useState<LocalSuggestChangesInterface[]>([])
 
     
     const handleCloseModal = () => setShowModal(false)
@@ -48,9 +52,37 @@ export const SuggestChanges = (props: Props) => {
     }
 
     const Vote = (val : 'upVote' | 'downVote',doc:SuggestChangesInterface) =>{
-        if(val==='upVote') getSuggestionRef(props.id,doc.id).set({...doc,upVotes:doc.upVotes +1})
-        if(val==='downVote') getSuggestionRef(props.id,doc.id).set({...doc,downVotes:doc.downVotes +1})
-    }
+        const voteRef = voteSuggestion(props.id,doc.id)
+        
+        voteRef && voteRef.get().then(data=>{
+            console.log(data.exists);
+            if(data.exists){
+
+                voteRef.delete().then(()=>{
+                    console.log('unvoted')
+                    if(val==='upVote') {
+                        getSuggestionRef(props.id,doc.id).set({upVotes:doc.upVotes -1},{merge:true});
+                    }
+                    else if(val==='downVote') {
+                        getSuggestionRef(props.id,doc.id).set({downVotes:doc.downVotes -1},{merge:true})
+                    }
+                })
+                
+            }
+            else{
+                console.log('voted')
+                if(val==='upVote') {
+                    getSuggestionRef(props.id,doc.id).set({upVotes:doc.upVotes +1},{merge:true});
+                    voteRef.set({voted:'upVote'})
+                }
+                else if(val==='downVote') {
+                    getSuggestionRef(props.id,doc.id).set({downVotes:doc.downVotes +1},{merge:true});
+                    voteRef.set({voted:'downVote'})
+                }
+            }   
+        })
+        }        
+
     const handleSavePost = async () => {
         setLoading(true)
         getSuggestionsSnapshot(props.id).add({...postData}).then((data)=>{console.log({data});setLoading(false);}).catch(error=>{console.log({error});setLoading(false);})
@@ -59,28 +91,51 @@ export const SuggestChanges = (props: Props) => {
 
 
     useEffect(() => {
-        const getAllPosts = () =>{
         
+        const getAllPosts = () =>{
+            
+            setLoading(true);
             const snapshotRef = getSuggestionsSnapshot(props.id);
-            return snapshotRef.orderBy('upVotes','desc').onSnapshot(snapshot=>{
-                        setLoading(true)
-                        let _posts: SuggestChangesInterface[] = [];
+           
+            return snapshotRef.orderBy('upVotes','desc').onSnapshot(async allSuggestions=>{
+                let _posts: LocalSuggestChangesInterface[] = [];
+                let _allVotes:any = {};
+                const userVotesSnapshotRef = getVoteSuggestions(props.id);
+                console.log(userVotesSnapshotRef)
+                await userVotesSnapshotRef?.get().then(snapshot=>{
                         snapshot.forEach(doc=>{
                             const id = doc.id;
-                            const {title,description,upVotes,downVotes,createdAt,updatedAt} = doc.data();
-                            _posts.push({title,description,upVotes,downVotes,id,createdAt,updatedAt})
+                            _allVotes[id]=doc.data();
                         })
-                        setSuggestChanges(_posts)
+                        
+                }).catch(error=>console.log(error))
+
+                console.log(_allVotes)
+                allSuggestions.forEach(doc=>{
+                            const id = doc.id;
+                            const {title,description,upVotes,downVotes,createdAt,updatedAt} = doc.data();
+                            console.log(id)
+                            console.log('voted',_allVotes[id])
+                            _posts.push({title,description,upVotes,downVotes,id,createdAt,updatedAt,voted:_allVotes[id] && _allVotes[id].voted })
+                        })
+                        console.log('should Update')
                         setLoading(false)
+                        setSuggestChanges(_posts)
+                        console.log({_posts})
+
                     },(error)=>{
+                        console.log({error})
                         setLoading(false)
                     })
-    
-        }
+            
+                }
+        
+        
         const unsubscribeFromSuggestChanges = getAllPosts()
 
+
         return () => {
-            unsubscribeFromSuggestChanges()
+            unsubscribeFromSuggestChanges();
         }
     },[props.id])
 
@@ -144,8 +199,8 @@ export const SuggestChanges = (props: Props) => {
                                 <div>{data.title}</div>
                                 <div>{data.description}</div>
                                 <div>
-                                    <span className="mr-2 btn btn-primary" onClick={e=>Vote('upVote',data)}>{data.upVotes} upvote</span>
-                                    <span className="btn btn-danger" onClick={e=>Vote('downVote',data)}>{data.downVotes} downvote</span>
+                                    <Button variant={data.voted==='upVote'?'mr-2 btn btn-success':'mr-2 btn btn-primary'} disabled={data.voted==='downVote'} onClick={e=>Vote('upVote',data)}>{data.upVotes} upvote</Button>
+                                    <Button variant={data.voted==='downVote'?'mr-2 btn btn-success':'mr-2 btn btn-primary'} disabled={data.voted==='upVote'} onClick={e=>Vote('downVote',data)}>{data.downVotes} downvote</Button>
                                 </div>
                             </div>
                         )

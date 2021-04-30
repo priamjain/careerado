@@ -7,6 +7,7 @@ import styles from './Navbar.module.css'
 
 export const Navbar = () => {
     const currentUser = useContext(AuthContext);
+    console.log(currentUser)
     return (
         <div className="d-flex pt-3 w-100">
             <BootstrapNavbar bg="light" expand="lg" className="w-100 bg-transparent">
