@@ -3,7 +3,7 @@ import { Nav } from 'react-bootstrap'
 import { Helmet } from 'react-helmet'
 import { Route, Switch } from 'react-router'
 import { NavLink } from 'react-router-dom'
-import { SuggestChanges } from '../../components/SuggestChanges/SuggestChanges'
+import { SuggestChanges } from '../../containers/SuggestChanges/SuggestChanges'
 import { Layout } from '../../utils/Layout/Layout'
 import styles from './Roadmap.module.css'
 

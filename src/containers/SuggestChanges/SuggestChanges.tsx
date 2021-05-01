@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Button, Card, Form, FormControl, Modal, Spinner } from 'react-bootstrap'
 import { Helmet } from 'react-helmet'
+import { useHistory } from 'react-router'
 import { getSuggestionRef, getSuggestionsSnapshot, voteSuggestion, getVoteSuggestions} from '../../actions/firebaseUtils'
 import { AuthContext } from '../../context/AuthContext'
 import firebase from '../../firebase'
@@ -32,6 +33,7 @@ interface LocalSuggestChangesInterface extends SuggestChangesInterface {
 }
 
 export const SuggestChanges = (props: Props) => {
+    const history = useHistory();
     const [loading, setLoading] = useState(false)
     const user = useContext(AuthContext);
     const [postData, setPostData] = useState<SuggestChangesInterface>(
@@ -61,48 +63,49 @@ export const SuggestChanges = (props: Props) => {
 
     const Vote = (val : 'upVote' | 'downVote',doc:SuggestChangesInterface) =>{
         const voteRef = voteSuggestion(props.id,doc.id)
+        const suggestionRef = getSuggestionRef(props.id,doc.id);
         
-        voteRef && voteRef.get().then(data=>{
-            console.log(data.exists);
-            if(data.exists){
-
-                voteRef.delete().then(()=>{
-                    console.log('unvoted')
-                    if(val==='upVote') {
-                        getSuggestionRef(props.id,doc.id).set({
-                            upVotes:doc.upVotes-1,
+        voteRef?.get().then(data=>{
+            const voted : 'upVote' | 'downVote' = data?.exists?data.data()?.voted:null;
+            const toVote : 'upVotes' | 'downVotes' = val==="upVote"?'upVotes':'downVotes';
+            if(voted){
+                const removeVote : 'upVotes' | 'downVotes' = voted==="upVote"?'upVotes':'downVotes';
+                if(removeVote===toVote){
+                    console.log({removeVote,toVote})
+                    voteRef.delete().then(()=>{
+                        suggestionRef.set({
+                            [removeVote]:doc[removeVote]-1,
                             updatedAt: firebase.firestore.Timestamp.fromDate(new Date())
                         },{merge:true});
-                    }
-                    else if(val==='downVote') {
-                        getSuggestionRef(props.id,doc.id).set({
-                            downVotes:doc.downVotes-1,
-                            updatedAt: firebase.firestore.Timestamp.fromDate(new Date())
-                        },{merge:true})
-                    }
-                })
+                    })
+                }
+                else{
+                    console.log({removeVote,toVote})
+                   voteRef.set({
+                       voted:val
+                   }).then(()=>{
+                       suggestionRef.set({
+                           [removeVote]:doc[removeVote]-1,
+                           [toVote]:doc[toVote]+1,
+                           updatedAt: firebase.firestore.Timestamp.fromDate(new Date())
+                       },{merge:true})
+                   })
+                }
                 
             }
             else{
-                console.log('voted')
-                if(val==='upVote') {
-                    getSuggestionRef(props.id,doc.id).set({
-                        upVotes:doc.upVotes+1,
+                console.log({toVote})
+
+                voteRef.set({
+                    voted:val
+                }).then(()=>{
+                    suggestionRef.set({
+                        [toVote]:doc[toVote]+1,
                         updatedAt: firebase.firestore.Timestamp.fromDate(new Date())
                     },{merge:true})
                     .catch(error=>console.log({error}))
-                    voteRef.set({voted:'upVote'})
-                    
-                }
-                else if(val==='downVote') {
-                    getSuggestionRef(props.id,doc.id).set({
-                        downVotes:doc.downVotes +1,
-                        updatedAt: firebase.firestore.Timestamp.fromDate(new Date())
-                    },{merge:true})
-                    .catch(error=>console.log({error}))
-                    voteRef.set({voted:'downVote'})
-                   
-                }
+                })
+
             }   
         })
         }        
@@ -112,7 +115,6 @@ export const SuggestChanges = (props: Props) => {
         getSuggestionsSnapshot(props.id).add({...postData}).then((data)=>{console.log({data});setLoading(false);}).catch(error=>{console.log({error});setLoading(false);})
         
     }
-
 
     useEffect(() => {
         const getAllPosts = () =>{
@@ -177,8 +179,8 @@ export const SuggestChanges = (props: Props) => {
                 <meta property="twitter:description" content={`Suggest Changes - ${props.descriptionSmall}`}/>
                 <meta property="twitter:image" content={"https://careerado.com/"+props.roadmap}/>
             </Helmet>
-            <section className="mt-4 text-center">
-                <Button variant="secondary" className="w-50" onClick={handleShowModal}>Create suggestion</Button>
+            <section className="mt-4 text-center container">
+                <Button variant="secondary" className="w-50" onClick={()=>!user?history.push('/login'):handleShowModal()}>Create suggestion</Button>
                 <Modal show={showModal} onHide={handleCloseModal}>
                     <Modal.Header>
                         <Modal.Title className="mr-auto ml-auto">Create new suggestion</Modal.Title>
@@ -214,35 +216,57 @@ export const SuggestChanges = (props: Props) => {
                     </Modal.Footer>
                 </Modal>
                 {
-                    
+                    suggestChanges.length===0?
+                                <div className="m-5 d-flex align-items-center justify-content-center">
+                                    <Spinner 
+                                    as="span"
+                                    animation="border"
+                                    
+                                    role="status"
+                                    aria-hidden="true"/>
+                                    <span className="ml-3 align-center">
+                                        Loading
+                                    </span>
+                                    
+                                </div>:  
                     suggestChanges.map(data=>{
                         console.log()
                         return(
-                            <Card className="col-12 col-md-10 ml-auto mr-auto text-left mt-2 mb-2 d-flex" key={data.id}>
-                                <div>
-                                    <i className="bi bi-arrow-down-square-fill"></i>
-                                </div>
-                                <Card.Body>
+                            <Card className="row d-flex flex-row text-left m-4" key={data.id}>
+                                <Card.Title className="col-12 col-lg-3 row d-flex align-self-start justify-content-around order-1 order-lg-0 pt-4">
+                                            <div className="col-6 col-lg-12 row d-flex text-center mb-3">
+                                                <div  className="col-6 text-lg-right">
+                                                    {data.upVotes}
+                                                </div>
+                                                <i 
+                                                    
+                                                    className={`col-6 bi bi-arrow-up-${data.voted==='upVote'?"square-fill":"square"}`}
+                                                    onClick={e=>Vote('upVote',data)}>
+                                                </i>
+                                            </div>
+                                            <div className="col-6 col-lg-12 row d-flex text-center">
+                                                <span  className="col-6 order-1 order-lg-0 text-lg-right" >
+                                                    {data.downVotes}
+                                                </span>
+                                                <i 
+                                                    
+                                                    className={`col-6 order-0 order-lg-1 bi bi-arrow-down-${data.voted==='downVote'?"square-fill":"square"}`}
+                                                    onClick={e=>Vote('downVote',data)}>
+                                                </i>
+                                            </div>
+                                            
+                                           
+                                </Card.Title>
+                                <Card.Body className="col-12 col-lg-9 order-0 order-lg-1">
                                     <Card.Title className="text-uppercase">{data.title}</Card.Title>
                                     <Card.Text>
                                         {data.description}
                                     </Card.Text>
-                                    <footer className="blockquote-footer">
+                                    <footer className="blockquote-footer text-right">
                                         {data.createdByDisplayName} at {data.createdAt.toDate().toDateString()}
                                     </footer>
                                 </Card.Body>
                             </Card>
-                            // <div key={data.id} className="border m-2 d-flex">
-                            //     <div>
-                            //         <Button variant={data.voted==='upVote'?'mr-2 btn btn-success':'mr-2 btn btn-primary'} disabled={data.voted==='downVote'} onClick={e=>Vote('upVote',data)}>{data.upVotes} upvote</Button>
-                            //         <Button variant={data.voted==='downVote'?'mr-2 btn btn-success':'mr-2 btn btn-primary'} disabled={data.voted==='upVote'} onClick={e=>Vote('downVote',data)}>{data.downVotes} downvote</Button>
-                            //     </div>
-                            //     <div>
-                            //         <div>{data.title}</div>
-                            //         <div>{data.description}</div>
-                            //         <div><img src={data.createdByPhotoUrl?data.createdByPhotoUrl:undefined} alt="author"/>{data.createdByDisplayName}</div>
-                            //     </div>
-                            // </div>
                         )
                     })
                 }

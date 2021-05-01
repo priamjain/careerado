@@ -1,7 +1,7 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/css/general.css'
-import 'bootstrap-icons'
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom'
 import { Home } from './pages/Home/Home';
 import { Roadmap } from './pages/Roadmap/Roadmap';
