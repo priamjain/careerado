@@ -44,6 +44,12 @@ export const Home = (props: Props) => {
                 <meta property="twitter:title" content="Careerado, the roadmap library"/>
                 <meta property="twitter:description" content="Find a roadmap for your passion and grow in your career."/>
                 <meta property="twitter:image" content={"https://careerado.com/"+Logo}/>
+                {
+                    navigator.userAgent!=="ReactSnap"?
+                        <>
+                                <script data-ad-client="ca-pub-3300867670369698" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        </>:null
+                }
             </Helmet>
             <Allcards roadmaps={roadmaps}/>
         </Layout>
