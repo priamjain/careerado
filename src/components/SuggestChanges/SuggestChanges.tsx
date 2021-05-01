@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { Button, Form, FormControl, Modal, Spinner } from 'react-bootstrap'
+import React, { useContext, useEffect, useState } from 'react'
+import { Button, Card, Form, FormControl, Modal, Spinner } from 'react-bootstrap'
 import { Helmet } from 'react-helmet'
 import { getSuggestionRef, getSuggestionsSnapshot, voteSuggestion, getVoteSuggestions} from '../../actions/firebaseUtils'
+import { AuthContext } from '../../context/AuthContext'
 import firebase from '../../firebase'
 
 interface Props {
@@ -20,6 +21,10 @@ interface SuggestChangesInterface {
     downVotes: number,
     createdAt: firebase.firestore.Timestamp,
     updatedAt: firebase.firestore.Timestamp,
+    createdByUID: string | null,
+    createdByPhotoUrl: string | null,
+    createdByDisplayName: string | null
+
 }
 
 interface LocalSuggestChangesInterface extends SuggestChangesInterface {
@@ -28,7 +33,7 @@ interface LocalSuggestChangesInterface extends SuggestChangesInterface {
 
 export const SuggestChanges = (props: Props) => {
     const [loading, setLoading] = useState(false)
-
+    const user = useContext(AuthContext);
     const [postData, setPostData] = useState<SuggestChangesInterface>(
         {
             id:"0",
@@ -38,6 +43,9 @@ export const SuggestChanges = (props: Props) => {
             downVotes:0,
             createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
             updatedAt: firebase.firestore.Timestamp.fromDate(new Date()),
+            createdByUID: user?user.uid:null,
+            createdByDisplayName: user?user.displayName:null,
+            createdByPhotoUrl:user?user.photoURL:null
         })
     const [showModal, setShowModal] = useState(false)
     const [suggestChanges, setSuggestChanges] = useState<LocalSuggestChangesInterface[]>([])
@@ -61,10 +69,16 @@ export const SuggestChanges = (props: Props) => {
                 voteRef.delete().then(()=>{
                     console.log('unvoted')
                     if(val==='upVote') {
-                        getSuggestionRef(props.id,doc.id).set({upVotes:doc.upVotes -1},{merge:true});
+                        getSuggestionRef(props.id,doc.id).set({
+                            upVotes:doc.upVotes-1,
+                            updatedAt: firebase.firestore.Timestamp.fromDate(new Date())
+                        },{merge:true});
                     }
                     else if(val==='downVote') {
-                        getSuggestionRef(props.id,doc.id).set({downVotes:doc.downVotes -1},{merge:true})
+                        getSuggestionRef(props.id,doc.id).set({
+                            downVotes:doc.downVotes-1,
+                            updatedAt: firebase.firestore.Timestamp.fromDate(new Date())
+                        },{merge:true})
                     }
                 })
                 
@@ -72,12 +86,22 @@ export const SuggestChanges = (props: Props) => {
             else{
                 console.log('voted')
                 if(val==='upVote') {
-                    getSuggestionRef(props.id,doc.id).set({upVotes:doc.upVotes +1},{merge:true});
+                    getSuggestionRef(props.id,doc.id).set({
+                        upVotes:doc.upVotes+1,
+                        updatedAt: firebase.firestore.Timestamp.fromDate(new Date())
+                    },{merge:true})
+                    .catch(error=>console.log({error}))
                     voteRef.set({voted:'upVote'})
+                    
                 }
                 else if(val==='downVote') {
-                    getSuggestionRef(props.id,doc.id).set({downVotes:doc.downVotes +1},{merge:true});
+                    getSuggestionRef(props.id,doc.id).set({
+                        downVotes:doc.downVotes +1,
+                        updatedAt: firebase.firestore.Timestamp.fromDate(new Date())
+                    },{merge:true})
+                    .catch(error=>console.log({error}))
                     voteRef.set({voted:'downVote'})
+                   
                 }
             }   
         })
@@ -91,7 +115,6 @@ export const SuggestChanges = (props: Props) => {
 
 
     useEffect(() => {
-        
         const getAllPosts = () =>{
             
             setLoading(true);
@@ -101,7 +124,6 @@ export const SuggestChanges = (props: Props) => {
                 let _posts: LocalSuggestChangesInterface[] = [];
                 let _allVotes:any = {};
                 const userVotesSnapshotRef = getVoteSuggestions(props.id);
-                console.log(userVotesSnapshotRef)
                 await userVotesSnapshotRef?.get().then(snapshot=>{
                         snapshot.forEach(doc=>{
                             const id = doc.id;
@@ -113,15 +135,13 @@ export const SuggestChanges = (props: Props) => {
                 console.log(_allVotes)
                 allSuggestions.forEach(doc=>{
                             const id = doc.id;
-                            const {title,description,upVotes,downVotes,createdAt,updatedAt} = doc.data();
-                            console.log(id)
-                            console.log('voted',_allVotes[id])
-                            _posts.push({title,description,upVotes,downVotes,id,createdAt,updatedAt,voted:_allVotes[id] && _allVotes[id].voted })
+                            const {title,description,upVotes,downVotes,createdAt,updatedAt,createdByDisplayName,createdByPhotoUrl,createdByUID} = doc.data();
+                            _posts.push({title,description,upVotes,downVotes,id,createdAt,updatedAt,createdByDisplayName,createdByPhotoUrl,createdByUID,voted:_allVotes[id] && _allVotes[id].voted })
                         })
                         console.log('should Update')
                         setLoading(false)
                         setSuggestChanges(_posts)
-                        console.log({_posts})
+                        
 
                     },(error)=>{
                         console.log({error})
@@ -132,13 +152,15 @@ export const SuggestChanges = (props: Props) => {
         
         
         const unsubscribeFromSuggestChanges = getAllPosts()
-
+        setPostData(p=>({...p,createdByUID: user?user.uid:null,
+            createdByDisplayName: user?user.displayName:null,
+            createdByPhotoUrl:user?user.photoURL:null}))
 
         return () => {
             unsubscribeFromSuggestChanges();
         }
-    },[props.id])
-
+    },[props.id,user])
+    
     return (
         <div>
             <Helmet>
@@ -194,15 +216,30 @@ export const SuggestChanges = (props: Props) => {
                 {
                     
                     suggestChanges.map(data=>{
+                        console.log()
                         return(
-                            <div key={data.id} className="border m-2">
-                                <div>{data.title}</div>
-                                <div>{data.description}</div>
-                                <div>
-                                    <Button variant={data.voted==='upVote'?'mr-2 btn btn-success':'mr-2 btn btn-primary'} disabled={data.voted==='downVote'} onClick={e=>Vote('upVote',data)}>{data.upVotes} upvote</Button>
-                                    <Button variant={data.voted==='downVote'?'mr-2 btn btn-success':'mr-2 btn btn-primary'} disabled={data.voted==='upVote'} onClick={e=>Vote('downVote',data)}>{data.downVotes} downvote</Button>
-                                </div>
-                            </div>
+                            <Card className="col-12 col-md-10 ml-auto mr-auto text-left mt-2 mb-2" key={data.id}>
+                                <Card.Body>
+                                    <Card.Title className="text-uppercase">{data.title}</Card.Title>
+                                    <Card.Text>
+                                        {data.description}
+                                    </Card.Text>
+                                    <footer className="blockquote-footer">
+                                        {data.createdByDisplayName} at {data.createdAt.toDate().toDateString()}
+                                    </footer>
+                                </Card.Body>
+                            </Card>
+                            // <div key={data.id} className="border m-2 d-flex">
+                            //     <div>
+                            //         <Button variant={data.voted==='upVote'?'mr-2 btn btn-success':'mr-2 btn btn-primary'} disabled={data.voted==='downVote'} onClick={e=>Vote('upVote',data)}>{data.upVotes} upvote</Button>
+                            //         <Button variant={data.voted==='downVote'?'mr-2 btn btn-success':'mr-2 btn btn-primary'} disabled={data.voted==='upVote'} onClick={e=>Vote('downVote',data)}>{data.downVotes} downvote</Button>
+                            //     </div>
+                            //     <div>
+                            //         <div>{data.title}</div>
+                            //         <div>{data.description}</div>
+                            //         <div><img src={data.createdByPhotoUrl?data.createdByPhotoUrl:undefined} alt="author"/>{data.createdByDisplayName}</div>
+                            //     </div>
+                            // </div>
                         )
                     })
                 }
