@@ -78,22 +78,22 @@ export const SuggestChanges = (props: Props) => {
                 if(removeVote===toVote){
                     console.log({removeVote,toVote})
                     voteRef.delete().then(()=>{
-                        suggestionRef.set({
+                        suggestionRef.update({
                             [removeVote]:doc[removeVote]-1,
-                            updatedAt: firebase.firestore.Timestamp.fromDate(new Date())
-                        },{merge:true});
+                            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                        });
                     })
                 }
                 else{
                     console.log({removeVote,toVote})
-                   voteRef.set({
+                   voteRef.update({
                        voted:val
                    }).then(()=>{
-                       suggestionRef.set({
+                       suggestionRef.update({
                            [removeVote]:doc[removeVote]-1,
                            [toVote]:doc[toVote]+1,
-                           updatedAt: firebase.firestore.Timestamp.fromDate(new Date())
-                       },{merge:true})
+                           updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                       })
                    })
                 }
                 
@@ -104,10 +104,10 @@ export const SuggestChanges = (props: Props) => {
                 voteRef.set({
                     voted:val
                 }).then(()=>{
-                    suggestionRef.set({
+                    suggestionRef.update({
                         [toVote]:doc[toVote]+1,
-                        updatedAt: firebase.firestore.Timestamp.fromDate(new Date())
-                    },{merge:true})
+                        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                    })
                     .catch(error=>console.log({error}))
                 })
 
@@ -122,7 +122,7 @@ export const SuggestChanges = (props: Props) => {
             getSuggestionsSnapshot(props.id).add({...postData}).then((data)=>{console.log({data});setLoading(false);}).catch(error=>{console.log({error});setLoading(false);})
             else if(docId && mode !=='new'){
                 const suggestionRef = getSuggestionRef(props.id,docId);
-                suggestionRef.update({title:postData.title,description:postData.description,updatedAt:firebase.firestore.Timestamp.fromDate(new Date())})
+                suggestionRef.update({title:postData.title,description:postData.description,updatedAt:firebase.firestore.FieldValue.serverTimestamp()})
             }
             setPostData(p=>({...p,title:"",description:""}))
             setShowModal(false);
