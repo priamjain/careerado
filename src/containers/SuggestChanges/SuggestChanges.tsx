@@ -33,6 +33,7 @@ interface LocalSuggestChangesInterface extends SuggestChangesInterface {
 }
 
 export const SuggestChanges = (props: Props) => {
+    const [mode, setMode] = useState("new")
     const history = useHistory();
     const [loading, setLoading] = useState(false)
     const user = useContext(AuthContext);
@@ -53,7 +54,11 @@ export const SuggestChanges = (props: Props) => {
     const [suggestChanges, setSuggestChanges] = useState<LocalSuggestChangesInterface[]>([])
 
     
-    const handleCloseModal = () => setShowModal(false)
+    const handleCloseModal = () => {
+        setMode('new');
+        setShowModal(false);
+        setPostData(p=>({...p,title:"",description:""}))
+    }
 
     const handleShowModal = () => setShowModal(true)
 
@@ -61,7 +66,7 @@ export const SuggestChanges = (props: Props) => {
         setPostData(oldData=>({...oldData,[key]:value}))
     }
 
-    const Vote = (val : 'upVote' | 'downVote',doc:SuggestChangesInterface) =>{
+    const Vote = (val : 'upVote' | 'downVote',doc:LocalSuggestChangesInterface) =>{
         const voteRef = voteSuggestion(props.id,doc.id)
         const suggestionRef = getSuggestionRef(props.id,doc.id);
         
@@ -110,10 +115,42 @@ export const SuggestChanges = (props: Props) => {
         })
         }        
 
-    const handleSavePost = async () => {
+    const handleSavePost = (docId:string|null) => {
         setLoading(true)
-        getSuggestionsSnapshot(props.id).add({...postData}).then((data)=>{console.log({data});setLoading(false);}).catch(error=>{console.log({error});setLoading(false);})
+        if(postData.title!==""){
+            if(mode==='new')
+            getSuggestionsSnapshot(props.id).add({...postData}).then((data)=>{console.log({data});setLoading(false);}).catch(error=>{console.log({error});setLoading(false);})
+            else if(docId && mode !=='new'){
+                const suggestionRef = getSuggestionRef(props.id,docId);
+                suggestionRef.update({title:postData.title,description:postData.description,updatedAt:firebase.firestore.Timestamp.fromDate(new Date())})
+            }
+            setPostData(p=>({...p,title:"",description:""}))
+            setShowModal(false);
+        }
+        else{
+            alert('Title is required')
+        }
+        setLoading(false)
         
+    }
+
+    const deletePost = (docId:string) =>{
+        const val = prompt('Write "y" if you want to delete this post')
+        console.log(val)
+        if(val==='y'){
+            const suggestionRef = getSuggestionRef(props.id,docId);
+            suggestionRef.delete().then((res=>{
+                console.log('deleted')
+            }))
+            .catch((error)=>console.log(error))
+        }
+        
+    }
+
+    const handleUpdatePost=(doc:LocalSuggestChangesInterface)=>{
+        setMode(doc.id);
+        setPostData(d=>({...d,title:doc.title,description:doc.description}));
+        setShowModal(true)
     }
 
     useEffect(() => {
@@ -179,7 +216,7 @@ export const SuggestChanges = (props: Props) => {
                 <meta property="twitter:description" content={`Suggest Changes - ${props.descriptionSmall}`}/>
                 <meta property="twitter:image" content={"https://careerado.com/"+props.roadmap}/>
             </Helmet>
-            <section className="mt-4 text-center container">
+            <section className="mt-4 text-center">
                 <Button variant="secondary" className="w-50" onClick={()=>!user?history.push('/login'):handleShowModal()}>Create suggestion</Button>
                 <Modal show={showModal} onHide={handleCloseModal}>
                     <Modal.Header>
@@ -189,7 +226,7 @@ export const SuggestChanges = (props: Props) => {
                         <Form>
                             <Form.Group>
                                 <Form.Label>Title</Form.Label>
-                                <FormControl as="textarea" placeholder="Title" value={postData.title} onChange={e=>onValChange('title',e.target.value)}/>
+                                <FormControl required as="textarea" placeholder="Title" value={postData.title} onChange={e=>onValChange('title',e.target.value)}/>
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label>Description</Form.Label>
@@ -199,7 +236,10 @@ export const SuggestChanges = (props: Props) => {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={handleCloseModal}>Close</Button>
-                        <Button onClick={handleSavePost}>
+                        <Button onClick={()=>{
+                            if(mode==='new')handleSavePost(null);
+                            else handleSavePost(mode)
+                            }}>
                             {loading?
                                 <>
                                     <Spinner 
@@ -232,33 +272,42 @@ export const SuggestChanges = (props: Props) => {
                     suggestChanges.map(data=>{
                         console.log()
                         return(
-                            <Card className="row d-flex flex-row text-left m-4" key={data.id}>
+                            <Card className="row d-flex flex-row text-left mt-4 mb-4 m-1" key={data.id}>
                                 <Card.Title className="col-12 col-lg-3 row d-flex align-self-start justify-content-around order-1 order-lg-0 pt-4">
-                                            <div className="col-6 col-lg-12 row d-flex text-center mb-3">
+                                            <div className="col-5 col-lg-12 row d-flex text-center mb-3">
                                                 <div  className="col-6 text-lg-right">
                                                     {data.upVotes}
                                                 </div>
-                                                <i 
+                                                <i style={{cursor:'pointer'}} 
                                                     
                                                     className={`col-6 bi bi-arrow-up-${data.voted==='upVote'?"square-fill":"square"}`}
                                                     onClick={e=>Vote('upVote',data)}>
                                                 </i>
                                             </div>
-                                            <div className="col-6 col-lg-12 row d-flex text-center">
+                                            <div className="col-6 col-lg-12 row d-flex text-center mb-3">
                                                 <span  className="col-6 order-1 order-lg-0 text-lg-right" >
                                                     {data.downVotes}
                                                 </span>
-                                                <i 
+                                                <i style={{cursor:'pointer'}} 
                                                     
                                                     className={`col-6 order-0 order-lg-1 bi bi-arrow-down-${data.voted==='downVote'?"square-fill":"square"}`}
                                                     onClick={e=>Vote('downVote',data)}>
                                                 </i>
                                             </div>
+                                            {
+                                                data.createdByUID===user?.uid 
+                                                &&
+                                                <div className="col-6 col-lg-12 row d-flex text-center" >
+                                                    <i style={{cursor:'pointer'}} className="col-6 bi bi-trash-fill text-left text-lg-right" onClick={()=>deletePost(data.id)}></i>
+                                                    <i style={{cursor:'pointer'}} className="col-6 bi bi-pencil-square" onClick={()=>{handleUpdatePost(data)}}></i>
+                                                </div> 
+                                            }
+                                            
                                             
                                            
                                 </Card.Title>
                                 <Card.Body className="col-12 col-lg-9 order-0 order-lg-1">
-                                    <Card.Title className="text-uppercase">{data.title}</Card.Title>
+                                    <Card.Title className="text-uppercase fs-1">{data.title}</Card.Title>
                                     <Card.Text>
                                         {data.description}
                                     </Card.Text>
