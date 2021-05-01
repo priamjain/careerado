@@ -1,6 +1,6 @@
 import React from 'react'
 import { Redirect } from 'react-router'
-import { signOut } from '../../utils/firebaseUtils'
+import { signOut } from '../../actions/firebaseUtils'
 
 interface Props {
     

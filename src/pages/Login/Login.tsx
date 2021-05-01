@@ -4,7 +4,7 @@ import React,{useContext} from 'react'
 import { AuthContext } from '../../context/AuthContext'
 // import { Toast } from 'react-bootstrap'
 // import style from './Login.module.css'
-import { signInWithGoogle } from '../../utils/firebaseUtils'
+import { signInWithGoogle } from '../../actions/firebaseUtils'
 import { Redirect } from 'react-router'
 
 
@@ -16,7 +16,7 @@ const Login = (props: Props) => {
     const currentUser : any = useContext(AuthContext);
     // const [signInFailed, setsignInFailed] = useState(false)
     const onSignIn = () =>{ 
-        signInWithGoogle()
+            signInWithGoogle()
             .then()
             .catch(reject=>{
                 // setsignInFailed(true);

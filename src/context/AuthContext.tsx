@@ -12,8 +12,20 @@ export const AuthProvider = (props: Props) => {
     const [currentUser, setCurrentUser] = useState<firebase.User | null>(null)
 
     useEffect(() => {
-        auth.onAuthStateChanged((user)=>setCurrentUser(user))
-    }, []) 
+        const unsubscribeFromAuth = auth.onAuthStateChanged((user)=>{
+            setCurrentUser(user);
+            if(user)
+            localStorage.setItem('careeradoUser',user.uid)
+            else
+            localStorage.removeItem('careeradoUser')
+        })
+        return(()=>{
+            unsubscribeFromAuth();
+        })
+    }, [])
+    
+    
+
     return (
         <AuthContext.Provider value={currentUser}>
             {props.children}
