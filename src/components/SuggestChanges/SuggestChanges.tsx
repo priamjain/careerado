@@ -218,7 +218,10 @@ export const SuggestChanges = (props: Props) => {
                     suggestChanges.map(data=>{
                         console.log()
                         return(
-                            <Card className="col-12 col-md-10 ml-auto mr-auto text-left mt-2 mb-2" key={data.id}>
+                            <Card className="col-12 col-md-10 ml-auto mr-auto text-left mt-2 mb-2 d-flex" key={data.id}>
+                                <div>
+                                    <i className="bi bi-arrow-down-square-fill"></i>
+                                </div>
                                 <Card.Body>
                                     <Card.Title className="text-uppercase">{data.title}</Card.Title>
                                     <Card.Text>
