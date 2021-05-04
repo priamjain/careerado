@@ -10,6 +10,7 @@ import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage';
 import Login from './pages/Login/Login';
 import { AuthProvider } from './context/AuthContext';
 import { SignOut } from './pages/SignOut/SignOut';
+import { ExploreRoadmaps } from './pages/ExploreRoadmaps/ExploreRoadmaps';
 
 interface RoadmapInterface {
   id: string,
@@ -29,6 +30,10 @@ function App() {
 
           <Route exact path="/">
             <Home/>
+          </Route>
+
+          <Route exact path="/roadmap">
+            <ExploreRoadmaps/>
           </Route>
 
           {

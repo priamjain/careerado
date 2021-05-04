@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Dropdown, Nav, Navbar as BootstrapNavbar} from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import Logo from '../../assets/logo.png'
 import { AuthContext } from '../../context/AuthContext'
 import styles from './Navbar.module.css'
@@ -11,11 +11,12 @@ export const Navbar = () => {
     return (
         <div className="d-flex pt-3 w-100">
             <BootstrapNavbar bg="light" expand="lg" className="w-100 bg-transparent">
-                <BootstrapNavbar.Brand as={Link} to="/"><img src={Logo} width="50" alt="Careerado"/></BootstrapNavbar.Brand>
+                <BootstrapNavbar.Brand as={NavLink} to="/"><img src={Logo} width="50" alt="Careerado"/></BootstrapNavbar.Brand>
                 <BootstrapNavbar.Toggle aria-controls="basic-navbar-nav" />
                 <BootstrapNavbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto">
-                        <Nav.Link as={Link} to="/" className="ml-3 text-dark border-bottom">Home</Nav.Link>
+                        <Nav.Link exact as={NavLink} to="/" className="ml-3 text-dark" activeClassName="border-bottom">Home</Nav.Link>
+                        <Nav.Link exact as={NavLink} to="/roadmap" className="ml-3 text-dark" activeClassName="border-bottom">Roadmaps</Nav.Link>
                         {
                             currentUser?
                             <div className="mr-auto">
@@ -25,7 +26,7 @@ export const Navbar = () => {
                                         {currentUser.displayName}
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu className="p-0 ml-5">
-                                        <Nav.Link as={Link} to="/signout" className="text-dark text-center">Sign Out</Nav.Link>
+                                        <Nav.Link exact as={NavLink} to="/signout" className="text-dark text-center">Sign Out</Nav.Link>
                                     </Dropdown.Menu>
                                 </Dropdown>
                             </div>                          

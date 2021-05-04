@@ -8,7 +8,7 @@ interface Props {
     children: React.ReactNode
 }
 
-export const Layout = (props: Props) => {
+export const LayoutWithSidebar = (props: Props) => {
     return (
         <div className="container">
             <div className="row">
@@ -23,6 +23,24 @@ export const Layout = (props: Props) => {
                 </div>
                 <div className={"col-12 col-md-3 "+styles.c2}>
                    <Sidebar/>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export const LayoutWithoutSidebar = (props: Props) => {
+    return (
+        <div className="container">
+            <div className="row">
+                <div className="col-12">
+                <Navbar/>
+                <div style={{minHeight:'78vh'}}>
+                {
+                    props.children
+                }
+                </div>
+                <Footer/>
                 </div>
             </div>
         </div>

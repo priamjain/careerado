@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet'
 import { Route, Switch } from 'react-router'
 import { NavLink } from 'react-router-dom'
 import { SuggestChanges } from '../../containers/SuggestChanges/SuggestChanges'
-import { Layout } from '../../utils/Layout/Layout'
+import { LayoutWithSidebar } from '../../utils/Layout/Layout'
 import styles from './Roadmap.module.css'
 
 interface Props {
@@ -22,7 +22,7 @@ export const Roadmap = (props: Props) => {
     
     
     return (
-            <Layout>
+            <LayoutWithSidebar>
                 <h1 className={"text-center h2 mt-3 mb-5 border-bottom border-dark pb-3 pl-5 pr-5 mr-auto ml-auto "+styles.title}>
                     {props.title} Roadmap
                 </h1>
@@ -109,6 +109,6 @@ export const Roadmap = (props: Props) => {
                     
                 </Switch>
 
-            </Layout>
+            </LayoutWithSidebar>
     )
 }

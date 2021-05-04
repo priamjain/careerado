@@ -10,8 +10,9 @@ interface Props{
         descriptionSmall: string,
         descriptionLarge: string,
         comingsoon: boolean,
-        image: string | null,
-    }[]
+        image: string | null,       
+    }[],
+    card : '1-1' | '1-3'
 }
 function Allcards(props:Props): ReactElement {
     return (
@@ -27,6 +28,7 @@ function Allcards(props:Props): ReactElement {
                                 title={roadmap.title}
                                 description={roadmap.descriptionSmall}
                                 comingsoon={roadmap.comingsoon}
+                                card={props.card}
                             />
                         )
                     })

@@ -1,36 +1,17 @@
-import React, {useState,useEffect} from 'react'
-import Allcards from '../../containers/Allcards/Allcards';
-import { Layout } from '../../utils/Layout/Layout';
+import { LayoutWithSidebar } from '../../utils/Layout/Layout';
 import {Helmet} from 'react-helmet'
 import Logo from '../../assets/logo.png'
-import data from '../../actions/RoadmapData.service';
+import SVG1 from '../../assets/illustrations/career_development.svg'
+import styles from './Home.module.css'
 
 interface Props {
 
 }
 
-interface Roadmap {
-    id: string,
-    title: string,
-    descriptionSmall: string,
-    descriptionLarge: string,
-    comingsoon: boolean,
-    image: string | null,
-}
-
 export const Home = (props: Props) => {
-    const [roadmaps, setRoadmaps] = useState<Roadmap[] | []>([])
-    useEffect(() => {
-        let allRoadmaps : Roadmap[]  = []
-        data.forEach(category=>{
-            allRoadmaps = allRoadmaps.concat(category.roadmaps)
-        })
-        setRoadmaps(allRoadmaps)
-    }, [])
-    
-    
+
     return (
-        <Layout>
+        <LayoutWithSidebar>
             <Helmet>
                 <title>Careerado, the roadmap library</title>
                 <meta
@@ -45,7 +26,19 @@ export const Home = (props: Props) => {
                 <meta property="twitter:description" content="Find a roadmap for your passion and grow in your career."/>
                 <meta property="twitter:image" content={"https://careerado.com/"+Logo}/>
             </Helmet>
-            <Allcards roadmaps={roadmaps}/>
-        </Layout>
+            <div className="row">
+                <div className="col-6 d-flex justify-content-center align-items-center flex-column">
+                    <h1>Careerado</h1>
+                    <p className="mt-3 text-center">
+                        Explore career options, roadmap for your passion and grow in your career.
+                    </p>
+                </div>
+                <div className="col-6">
+                    <img src={SVG1} alt="Explore every career option" className={styles.header_image}/>
+                </div>
+            </div>
+            
+            
+        </LayoutWithSidebar>
     )
 }
