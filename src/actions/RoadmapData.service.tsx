@@ -5,7 +5,7 @@ import DataScienceRoadmap from '../assets/roadmaps/datascience.png'
 import GuitarRoadmap from '../assets/roadmaps/guitar.png'
 
 
-let data = 
+export const RoadmapData = 
     [
         {
             categoryName:"Computer Science",
@@ -67,8 +67,6 @@ let data =
         }
     ]
 
-
-export default data
 
 
 

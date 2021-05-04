@@ -1,7 +1,7 @@
 import React from 'react'
-import { LayoutWithSidebar } from '../../utils/Layout/Layout';
 import { Helmet } from 'react-helmet';
 import {Link} from 'react-router-dom'
+import { LayoutWithSidebar } from '../../components/Layout/Layout';
 interface Props {
     
 }

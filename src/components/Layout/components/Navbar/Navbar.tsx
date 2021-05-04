@@ -1,10 +1,9 @@
 import React, { useContext } from 'react'
 import { Dropdown, Nav, Navbar as BootstrapNavbar} from 'react-bootstrap'
 import { Link, NavLink } from 'react-router-dom'
-import Logo from '../../assets/logo.png'
-import { AuthContext } from '../../context/AuthContext'
+import Logo from '../../../../assets/logo.png'
+import { AuthContext } from '../../../../context/AuthContext'
 import styles from './Navbar.module.css'
-
 export const Navbar = () => {
     const currentUser = useContext(AuthContext);
     console.log(currentUser)

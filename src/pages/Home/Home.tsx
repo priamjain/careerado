@@ -1,9 +1,12 @@
-import { LayoutWithSidebar } from '../../utils/Layout/Layout';
 import {Helmet} from 'react-helmet'
 import Logo from '../../assets/logo.png'
 import SVG1 from '../../assets/illustrations/career_development.svg'
 import styles from './Home.module.css'
-
+import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { LayoutWithSidebar } from '../../components/Layout/Layout';
+// import Allcards from '../../containers/Allcards/Allcards';
+// import { RoadmapData } from '../../actions/RoadmapData.service';
 interface Props {
 
 }
@@ -26,19 +29,23 @@ export const Home = (props: Props) => {
                 <meta property="twitter:description" content="Find a roadmap for your passion and grow in your career."/>
                 <meta property="twitter:image" content={"https://careerado.com/"+Logo}/>
             </Helmet>
-            <div className="row">
-                <div className="col-6 d-flex justify-content-center align-items-center flex-column">
+            <div className="row mt-3">
+                <div className="col-8 d-flex justify-content-center align-items-center flex-column">
                     <h1>Careerado</h1>
                     <p className="mt-3 text-center">
                         Explore career options, roadmap for your passion and grow in your career.
                     </p>
+                    <div>
+                        <Link to="/roadmap">
+                            <Button variant="info">Explore Roadmaps</Button>
+                        </Link>
+                        
+                    </div>
                 </div>
-                <div className="col-6">
+                <div className="col-4">
                     <img src={SVG1} alt="Explore every career option" className={styles.header_image}/>
                 </div>
-            </div>
-            
-            
+            </div>           
         </LayoutWithSidebar>
     )
 }

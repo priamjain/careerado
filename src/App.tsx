@@ -4,8 +4,8 @@ import './assets/css/general.css'
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom'
 import { Home } from './pages/Home/Home';
-import { Roadmap } from './pages/Roadmap/Roadmap';
-import roadmapsData  from './actions/RoadmapData.service'
+import { Roadmap } from './pages/ExploreRoadmaps/Roadmap/Roadmap';
+import {RoadmapData}  from './actions/RoadmapData.service'
 import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage';
 import Login from './pages/Login/Login';
 import { AuthProvider } from './context/AuthContext';
@@ -37,7 +37,7 @@ function App() {
           </Route>
 
           {
-            roadmapsData.map((category)=>{
+            RoadmapData.map((category)=>{
               return(
                 category.roadmaps.map((roadmap:RoadmapInterface)=>{
                   return(

@@ -3,8 +3,9 @@ import { Nav } from 'react-bootstrap'
 import { Helmet } from 'react-helmet'
 import { Route, Switch } from 'react-router'
 import { NavLink } from 'react-router-dom'
-import { SuggestChanges } from '../../containers/SuggestChanges/SuggestChanges'
-import { LayoutWithSidebar } from '../../utils/Layout/Layout'
+import { LayoutWithSidebar } from '../../../components/Layout/Layout'
+import { SuggestChanges } from '../../../containers/SuggestChanges/SuggestChanges'
+
 import styles from './Roadmap.module.css'
 
 interface Props {

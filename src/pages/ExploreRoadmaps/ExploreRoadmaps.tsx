@@ -1,8 +1,7 @@
 import React, {useState,useEffect} from 'react'
 import Allcards from '../../containers/Allcards/Allcards';
-import data from '../../actions/RoadmapData.service';
-import { LayoutWithSidebar } from '../../utils/Layout/Layout';
-
+import { LayoutWithSidebar } from '../../components/Layout/Layout';
+import { RoadmapData } from '../../actions/RoadmapData.service';
 interface Props {
     
 }
@@ -23,7 +22,7 @@ export const ExploreRoadmaps = (props: Props) => {
 
     useEffect(() => {
         let allRoadmaps : Roadmap[]  = []
-        data.forEach(category=>{
+        RoadmapData.forEach(category=>{
             allRoadmaps = allRoadmaps.concat(category.roadmaps)
         })
         setRoadmaps(allRoadmaps)
