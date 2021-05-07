@@ -6,31 +6,41 @@
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
   <loc>https://careerado.com/</loc>
-  <lastmod>2021-04-18T13:43:35+00:00</lastmod>
+  <lastmod>2021-05-07T13:43:35+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 
+<url>
+  <loc>https://careerado.com/aboutus</loc>
+  <lastmod>2021-05-07T13:43:35+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
 
+<url>
+  <loc>https://careerado.com/roadmap</loc>
+  <lastmod>2021-05-07T13:43:35+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
 
   <url>
     <loc>https://careerado.com/roadmap/react/</loc>
     <lastmod>2021-04-18T13:43:35+00:00</lastmod>
-    <priority>0.80</priority>
+    <priority>0.70</priority>
   </url>
   <url>
     <loc>https://careerado.com/roadmap/backend/</loc>
     <lastmod>2021-04-18T13:43:35+00:00</lastmod>
-    <priority>0.80</priority>
+    <priority>0.70</priority>
   </url>
   <url>
     <loc>https://careerado.com/roadmap/guitar/</loc>
     <lastmod>2021-04-25T13:43:35+00:00</lastmod>
-    <priority>0.80</priority>
+    <priority>0.70</priority>
   </url>
   <url>
     <loc>https://careerado.com/roadmap/datascience/</loc>
     <lastmod>2021-04-18T13:43:35+00:00</lastmod>
-    <priority>0.80</priority>
+    <priority>0.70</priority>
   </url>
 
 

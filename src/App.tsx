@@ -1,3 +1,4 @@
+
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/css/general.css'
@@ -5,12 +6,14 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom'
 import { Home } from './pages/Home/Home';
 import { Roadmap } from './pages/ExploreRoadmaps/Roadmap/Roadmap';
-import {RoadmapData}  from './actions/RoadmapData.service'
+import {RoadmapData}  from './utils/RoadmapData.service'
 import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage';
 import Login from './pages/Login/Login';
 import { AuthProvider } from './context/AuthContext';
 import { SignOut } from './pages/SignOut/SignOut';
 import { ExploreRoadmaps } from './pages/ExploreRoadmaps/ExploreRoadmaps';
+import { AboutUs } from './pages/AboutUs/AboutUs';
+import { ScrollToTop } from './components/ScrollToTop/ScrollToTop';
 
 interface RoadmapInterface {
   id: string,
@@ -23,13 +26,19 @@ interface RoadmapInterface {
 
 function App() {
 
+
   return (
     <AuthProvider>
       <Router>
+      <ScrollToTop/>
         <Switch>
-
           <Route exact path="/">
+          
             <Home/>
+          </Route>
+
+          <Route exact path="/aboutus">
+            <AboutUs/>
           </Route>
 
           <Route exact path="/roadmap">

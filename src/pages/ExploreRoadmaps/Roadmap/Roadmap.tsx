@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React from 'react'
 import { Nav } from 'react-bootstrap'
 import { Helmet } from 'react-helmet'
 import { Route, Switch } from 'react-router'
@@ -16,11 +16,7 @@ interface Props {
     roadmap:string | null
 }
 
-export const Roadmap = (props: Props) => {
-    useEffect(() => {
-        window.scrollTo(0, 0)
-      })
-    
+export const Roadmap = (props: Props) => {    
     
     return (
             <LayoutWithSidebar>

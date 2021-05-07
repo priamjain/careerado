@@ -15,6 +15,7 @@ export const Navbar = () => {
                 <BootstrapNavbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto">
                         <Nav.Link exact as={NavLink} to="/" className="ml-3 text-dark" activeClassName="border-bottom">Home</Nav.Link>
+                        <Nav.Link exact as={NavLink} to="/aboutus" className="ml-3 text-dark" activeClassName="border-bottom">About Us</Nav.Link>
                         <Nav.Link exact as={NavLink} to="/roadmap" className="ml-3 text-dark" activeClassName="border-bottom">Roadmaps</Nav.Link>
                         {
                             currentUser?

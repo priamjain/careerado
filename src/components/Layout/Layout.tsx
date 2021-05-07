@@ -14,7 +14,7 @@ export const LayoutWithSidebar = (props: Props) => {
             <div className="row">
                 <div className="col-12 col-md-9">
                 <Navbar/>
-                <div style={{minHeight:'78vh'}}>
+                <div style={{minHeight:'50vh'}} className="pl-md-3">
                 {
                     props.children
                 }

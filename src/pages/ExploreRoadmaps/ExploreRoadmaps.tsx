@@ -1,7 +1,7 @@
 import React, {useState,useEffect} from 'react'
 import Allcards from '../../containers/Allcards/Allcards';
 import { LayoutWithSidebar } from '../../components/Layout/Layout';
-import { RoadmapData } from '../../actions/RoadmapData.service';
+import { RoadmapData } from '../../utils/RoadmapData.service';
 interface Props {
     
 }
